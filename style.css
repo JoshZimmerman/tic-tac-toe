@@ -5,6 +5,7 @@
   --color-cardback-blue: rgb(31, 63, 206);
   --color-cardback-red: rgb(175, 36, 36);
   --color-table-background: #1c8031;
+  box-sizing: border-box;
 }
 
 body, html {
@@ -43,145 +44,45 @@ body {
   border-width: 6px;
   border-color: white;
   border-radius: 6px;
-}
-
-.score-container {
-  text-align: center;
-  width: 120px;
-  margin: 0;
-}
-
-#player-score, #comp-score {
-  margin: 15px;
-  font-size: 18px;
+  box-sizing: border-box;
 }
 
 .game-board {
   background-color: var(--color-table-background);
-  height: 500px;
-  width: 500px;
+  box-sizing: border-box;
+  width:100%;
   display: grid;
-  grid-template-columns: auto 110px 110px 110px auto;
-  grid-template-rows: 20px 154px auto 154px 20px;
-  column-gap: 20px;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 33% 33% 33%;
+  grid-auto-flow:row;
+}
+.square {
+  height: 75px;
+  width: 75px;
+  background-color: transparent;
+  box-sizing: border-box;
+  text-align:center;
+  line-height: 75px;
+  font-size: 40px;
 }
 
-.comp-card {
-  background-color: var(--color-cardback-blue);
-  border-radius: 8px;
-  grid-row: 2 / 3;
-  font-size: 13px;
-  text-align: center;
-  color: var(--color-cardback-blue);
+.top {
+  border-bottom: 5px solid black;
 }
-
+.bot {
+  border-top: 5px solid black;
+}
+.left {
+  border-right: 5px solid black;
+}
+.right {
+  border-left: 5px solid black;
+}
 .results-container {
   grid-column: 1 / span 5;
   grid-row: 3 / 4;
   align-self: center;
   text-align: center;
-}
-
-.flip-card {
-  background-color: transparent;
-  perspective: 1000px;
-  box-sizing: border-box;
-  height: 154px;
-  width: 110px;
-  
-}
-
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align:center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 3px 4px #155e25;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-.comp-card:hover .flip-card-inner{
-  transform: rotateY(30deg);
-}
-
-.player-card:hover .flip-card-inner {
-  transform: rotateY(180deg) translateY(-10px);
-  cursor: pointer;
-}
-
-.flip-over-card {
-  transform: rotateY(180deg) translateY(10px);
-}
-
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-.blue-card-back-img {
-  border-radius: 8px;
-}
-
-.red-card-back-img {
-  border-radius: 8px;
-}
-
-.flip-card-front {
-  background-color: var(--color-cardback-blue);
-  color: black;
-}
-
-.flip-card-back {
-  background-color: white;
-  transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-content: center;
-}
-
-.player-card:active {
-  transform: translateY(-5px);
-}
-
-.blue-sci-img, .blue-pap-img, .blue-rock-img{
-  padding-top: 10px;
-  height: 100px;
-  width: 100px;
-  margin: 0 auto;
-}
-
-.red-sci-img, .red-pap-img, .red-rock-img {
-  padding-top: 10px;
-  height: 100px;
-  width: 100px;
-  margin: 0 auto;
-}
-
-.blue-text, .red-text {
-  padding-bottom: 10px;
-}
-
-.blue-text {
-  color: var(--color-cardback-blue);
-}
-
-.red-text {
-  color: var(--color-cardback-red);
-}
-
-.player-card {
-  grid-row: 4 / 5;
-  font-size: 12px;
-  color: var(--color-cardback-red);
 }
 
 .overlay {
