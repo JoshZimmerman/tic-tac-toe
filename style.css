@@ -1,0 +1,244 @@
+:root {
+  --color-font: rgb(255, 255, 255);
+  --color-background: rgb(0, 0, 0);
+  --color-g-background: #23913b;
+  --color-cardback-blue: rgb(31, 63, 206);
+  --color-cardback-red: rgb(175, 36, 36);
+  --color-table-background: #1c8031;
+}
+
+body, html {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+}
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  color: var(--color-font);
+  background-color: var(--color-background);
+  min-width: 740px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+
+.head {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  margin: 0;
+  text-align: center;
+}
+
+.game-area {
+  margin: 0 auto;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: double;
+  border-width: 6px;
+  border-color: white;
+  border-radius: 6px;
+}
+
+.score-container {
+  text-align: center;
+  width: 120px;
+  margin: 0;
+}
+
+#player-score, #comp-score {
+  margin: 15px;
+  font-size: 18px;
+}
+
+.game-board {
+  background-color: var(--color-table-background);
+  height: 500px;
+  width: 500px;
+  display: grid;
+  grid-template-columns: auto 110px 110px 110px auto;
+  grid-template-rows: 20px 154px auto 154px 20px;
+  column-gap: 20px;
+}
+
+.comp-card {
+  background-color: var(--color-cardback-blue);
+  border-radius: 8px;
+  grid-row: 2 / 3;
+  font-size: 13px;
+  text-align: center;
+  color: var(--color-cardback-blue);
+}
+
+.results-container {
+  grid-column: 1 / span 5;
+  grid-row: 3 / 4;
+  align-self: center;
+  text-align: center;
+}
+
+.flip-card {
+  background-color: transparent;
+  perspective: 1000px;
+  box-sizing: border-box;
+  height: 154px;
+  width: 110px;
+  
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align:center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 3px 4px #155e25;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.comp-card:hover .flip-card-inner{
+  transform: rotateY(30deg);
+}
+
+.player-card:hover .flip-card-inner {
+  transform: rotateY(180deg) translateY(-10px);
+  cursor: pointer;
+}
+
+.flip-over-card {
+  transform: rotateY(180deg) translateY(10px);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.blue-card-back-img {
+  border-radius: 8px;
+}
+
+.red-card-back-img {
+  border-radius: 8px;
+}
+
+.flip-card-front {
+  background-color: var(--color-cardback-blue);
+  color: black;
+}
+
+.flip-card-back {
+  background-color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.player-card:active {
+  transform: translateY(-5px);
+}
+
+.blue-sci-img, .blue-pap-img, .blue-rock-img{
+  padding-top: 10px;
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.red-sci-img, .red-pap-img, .red-rock-img {
+  padding-top: 10px;
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.blue-text, .red-text {
+  padding-bottom: 10px;
+}
+
+.blue-text {
+  color: var(--color-cardback-blue);
+}
+
+.red-text {
+  color: var(--color-cardback-red);
+}
+
+.player-card {
+  grid-row: 4 / 5;
+  font-size: 12px;
+  color: var(--color-cardback-red);
+}
+
+.overlay {
+  position: absolute;
+  opacity: 0%;
+  height:100%;
+  width:100%;
+  border-radius: 8px;
+}
+
+#pc-rock, #comp-rock{
+  grid-column: 2 / 3;
+}
+
+#pc-paper, #comp-paper {
+  grid-column: 3 / 4;
+}
+
+#pc-scissors, #comp-scissors {
+  grid-column: 4 / 5;
+}
+
+#final-result {
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+p {
+  margin: 3px;
+}
+
+h1 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-content: center;
+  line-height: 16px;
+  padding: 0;
+  margin: 5px 0;
+  bottom: 0;
+  width: 100%;
+}
+
+#footer-text {
+  margin: 0;
+  padding-left: 10px;
+}
