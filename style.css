@@ -32,6 +32,8 @@ body {
   line-height: 60px;
   margin: 0;
   text-align: center;
+  padding-top: 20px;
+
 }
 
 .game-area {
@@ -49,6 +51,7 @@ body {
 
 .game-board {
   background-color: var(--color-table-background);
+  padding: 50px;
   box-sizing: border-box;
   width:100%;
   display: grid;
@@ -64,6 +67,7 @@ body {
   text-align:center;
   line-height: 75px;
   font-size: 40px;
+  cursor: pointer;
 }
 
 .top {
