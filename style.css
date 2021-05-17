@@ -64,10 +64,12 @@ body {
   width: 75px;
   background-color: transparent;
   box-sizing: border-box;
-  text-align:center;
-  line-height: 75px;
-  font-size: 40px;
+  font-size: 60px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Fredoka One', cursive;
 }
 
 .top {

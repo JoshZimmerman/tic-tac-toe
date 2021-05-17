@@ -28,9 +28,8 @@ const eventController = (function () {
   }
 
   setSquares();
-//  return {
-//    setSquares: setSquares
-//  };
+  //Might need to merge display and event controllers if too much code
+  //is duplicated or shared in global
 })();
 
 //eventController.setSquares();
