@@ -1,17 +1,51 @@
 const gameBoard = (function () {
-  let gameState = []
+  let board = ['','','',
+               '','','',
+               '','','']
+  //console.log(gameState);
+  const getBoard = () => {
+    return board;
+  };
+  const resetBoard = () => {
+    board = board.map(square => square = '');
+    console.log(board);
+  }
+  const setSquare = (mark, index) => {
+    board[index] = mark;
+    console.log(board);
+    displayController.render(board);
+  }
 
+  return {
+    getBoard,
+    setSquare,
+    resetBoard
+  }
 })();
 
+const Player = (sign) => {
+  let playerSign = sign;
+
+
+
+}
 const displayController = (function () {
   //methods here should only be concerned with updating visuals on DOM elements
 
   //cache DOM
   const gridDiv = document.querySelector(".game-board");
-  let gridSquares = gridDiv.childNodes;
+  let gridSquares = document.querySelectorAll(".square");
+  console.log(gridSquares);
+
+  const render = function(board) {
+    for(let i=0; i<board.length; i++) {
+      gridSquares.item(i).textContent = board[i]
+    }
+  }
 
   return {
-    gridSquares:gridSquares,
+    gridSquares,
+    render
   }
 })();
 
