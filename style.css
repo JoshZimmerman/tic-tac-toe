@@ -35,7 +35,10 @@ body {
   padding-top: 20px;
 
 }
-
+.message-area {
+  margin: 0 auto;
+  padding: 10px 0px;
+}
 .game-area {
   margin: 0 auto;
   max-width: 800px;
