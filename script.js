@@ -62,6 +62,13 @@ const displayController = (function () {
     });
   }
 
+  const indicateTurn = (turn) => {
+    if (turn) {
+      setMessage("Player 1's Turn");
+    } else {
+      setMessage("Player 2's Turn");
+    }
+  }
   
   const render = function(board) {
     for(let i=0; i<board.length; i++) {
@@ -73,12 +80,14 @@ const displayController = (function () {
     message.textContent = str;
   }
 
+
   setSquares();
 
   return {
     gridSquares,
     setMessage,
-    render
+    render,
+    indicateTurn
   }
 })();
 
@@ -93,9 +102,19 @@ const gameController = (function () {
     player1Turn ? player1Turn = false : player1Turn = true;
   }
 
+  const getCurrentPlayersMark = (player1Turn) => {
+    return player1Turn ? player1.getSign() : player2.getSign();
+  }
+  
+
   const playRound = (index) => {
     console.log(index)
+    gameBoard.setSquare(getCurrentPlayersMark(player1Turn), index);
+    toggleTurn();
+    displayController.indicateTurn(player1Turn);
+    displayController.render(gameBoard.getBoard());
   }
+
 
   return {
     playRound
