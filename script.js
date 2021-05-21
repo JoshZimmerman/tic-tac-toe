@@ -50,16 +50,24 @@ const displayController = (function () {
   const gridDiv = document.querySelector(".game-board");
   const gridSquares = document.querySelectorAll(".square");
   const message = document.querySelector("#message");
+  const resetButton = document.querySelector('.reset');
   console.log(gridSquares);
 
-  function setSquares() {
+  function init() {
     gridSquares.forEach( square => {square.addEventListener ('click', function(e) {
       console.log(`Square ${e.target.dataset.index} was clicked!`);
-      if (gameController.gameOver || e.target.textContent !== "") return;
+      if (gameController.getGameOver() || e.target.textContent !== "") {
+        return;
+      } else {
       //call private function to update square with players mark to gameState
-      gameController.playRound(`${e.target.dataset.index}`);
+        gameController.playRound(`${e.target.dataset.index}`);
+      }
       //array and rerender gameboard
       });
+    });
+    resetButton.addEventListener('click', function() {
+      console.log("Game Reset");
+      gameController.resetGame();
     });
   }
 
@@ -82,7 +90,7 @@ const displayController = (function () {
   }
 
 
-  setSquares();
+  init();
 
   return {
     gridSquares,
@@ -119,9 +127,6 @@ const gameController = (function () {
       [0, 4, 9],
       [2, 4, 6],
     ];
-    console.log('Checking')
-    console.log(index);
-    console.log(getCurrentPlayerSign(player1Turn))
     
     return winningStates.filter((combo) => combo.includes(parseInt(index)))
                         .some((posCombo) => posCombo.every(
@@ -134,17 +139,27 @@ const gameController = (function () {
     return (sign == player1.getSign() || sign == player2.getSign)
   }
 
+  const getGameOver = () => {
+    return gameOver;
+  }
+
+  const resetGame = () => {
+    gameOver = false;
+    player1Turn = true;
+    gameBoard.resetBoard();
+    displayController.render(gameBoard.getBoard());
+    displayController.indicateTurn(player1Turn)
+  }
+
   const playRound = (index) => {
-    console.log(index)
-    console.log(player1Turn)
     gameBoard.setSquare(getCurrentPlayerSign(player1Turn), index);
     displayController.render(gameBoard.getBoard());
-    console.log(gameBoard.getBoard().every(isPlayerSign))
+    console.log(gameBoard.getBoard())
     if (checkVictory(index))  {
       displayController.setMessage(`Player ${getCurrentPlayerSign(player1Turn)} Wins!`)
       gameOver = true;
       return;
-    } else if (gameBoard.getBoard().every(isPlayerSign)) {
+    } else if (gameBoard.getBoard().every(item => (item !== ''))) {
       displayController.setMessage("It's a Draw.")
       gameOver = true;
       return;
@@ -157,7 +172,8 @@ const gameController = (function () {
 
   return {
     playRound,
-    gameOver
+    getGameOver,
+    resetGame
   }
   
   //Might need to merge display and event controllers if too much code
