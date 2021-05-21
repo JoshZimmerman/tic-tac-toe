@@ -1,4 +1,5 @@
 # tic-tac-toe
+[Live Preview](https://joshzimmerman.github.io/tic-tac-toe/)
 
 This tic-tac-toe game is a javascript assignment for The Odin Project web development course.
 
