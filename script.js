@@ -55,6 +55,7 @@ const displayController = (function () {
   function setSquares() {
     gridSquares.forEach( square => {square.addEventListener ('click', function(e) {
       console.log(`Square ${e.target.dataset.index} was clicked!`);
+      if (gameController.gameOver || e.target.textContent !== "") return;
       //call private function to update square with players mark to gameState
       gameController.playRound(`${e.target.dataset.index}`);
       //array and rerender gameboard
@@ -97,27 +98,66 @@ const gameController = (function () {
   const player2 = Player('O');
 
   let player1Turn = true;
+  let gameOver = false;
 
   function toggleTurn() {
     player1Turn ? player1Turn = false : player1Turn = true;
   }
 
-  const getCurrentPlayersMark = (player1Turn) => {
+  const getCurrentPlayerSign = (player1Turn) => {
     return player1Turn ? player1.getSign() : player2.getSign();
   }
   
+  const checkVictory = (index) => {
+    const winningStates = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 9],
+      [2, 4, 6],
+    ];
+    console.log('Checking')
+    console.log(index);
+    console.log(getCurrentPlayerSign(player1Turn))
+    
+    return winningStates.filter((combo) => combo.includes(parseInt(index)))
+                        .some((posCombo) => posCombo.every(
+                            (index) => gameBoard.getSquare(index) === getCurrentPlayerSign(player1Turn)
+                        )
+                      );
+  }
+
+  const isPlayerSign = (sign) => {
+    return (sign == player1.getSign() || sign == player2.getSign)
+  }
 
   const playRound = (index) => {
     console.log(index)
-    gameBoard.setSquare(getCurrentPlayersMark(player1Turn), index);
-    toggleTurn();
-    displayController.indicateTurn(player1Turn);
+    console.log(player1Turn)
+    gameBoard.setSquare(getCurrentPlayerSign(player1Turn), index);
     displayController.render(gameBoard.getBoard());
+    console.log(gameBoard.getBoard().every(isPlayerSign))
+    if (checkVictory(index))  {
+      displayController.setMessage(`Player ${getCurrentPlayerSign(player1Turn)} Wins!`)
+      gameOver = true;
+      return;
+    } else if (gameBoard.getBoard().every(isPlayerSign)) {
+      displayController.setMessage("It's a Draw.")
+      gameOver = true;
+      return;
+    } else {
+      toggleTurn();
+      displayController.indicateTurn(player1Turn);
+    }
   }
 
 
   return {
-    playRound
+    playRound,
+    gameOver
   }
   
   //Might need to merge display and event controllers if too much code
